@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9600DAE629817B2C00A1F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9600DAE529817B2C00A1F9E8 /* AppDelegate.swift */; };
-		9600DAE829817B2C00A1F9E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9600DAE729817B2C00A1F9E8 /* SceneDelegate.swift */; };
 		9600DAEA29817B2C00A1F9E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9600DAE929817B2C00A1F9E8 /* ViewController.swift */; };
-		9600DAED29817B2C00A1F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9600DAEB29817B2C00A1F9E8 /* Main.storyboard */; };
 		9600DAEF29817B2D00A1F9E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9600DAEE29817B2D00A1F9E8 /* Assets.xcassets */; };
 		9600DAF229817B2D00A1F9E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9600DAF029817B2D00A1F9E8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,9 +16,7 @@
 /* Begin PBXFileReference section */
 		9600DAE229817B2C00A1F9E8 /* tryBluetooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tryBluetooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9600DAE529817B2C00A1F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9600DAE729817B2C00A1F9E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9600DAE929817B2C00A1F9E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9600DAEC29817B2C00A1F9E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9600DAEE29817B2D00A1F9E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9600DAF129817B2D00A1F9E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9600DAF329817B2D00A1F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,9 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				9600DAE529817B2C00A1F9E8 /* AppDelegate.swift */,
-				9600DAE729817B2C00A1F9E8 /* SceneDelegate.swift */,
 				9600DAE929817B2C00A1F9E8 /* ViewController.swift */,
-				9600DAEB29817B2C00A1F9E8 /* Main.storyboard */,
 				9600DAEE29817B2D00A1F9E8 /* Assets.xcassets */,
 				9600DAF029817B2D00A1F9E8 /* LaunchScreen.storyboard */,
 				9600DAF329817B2D00A1F9E8 /* Info.plist */,
@@ -127,7 +121,6 @@
 			files = (
 				9600DAF229817B2D00A1F9E8 /* LaunchScreen.storyboard in Resources */,
 				9600DAEF29817B2D00A1F9E8 /* Assets.xcassets in Resources */,
-				9600DAED29817B2C00A1F9E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,21 +133,12 @@
 			files = (
 				9600DAEA29817B2C00A1F9E8 /* ViewController.swift in Sources */,
 				9600DAE629817B2C00A1F9E8 /* AppDelegate.swift in Sources */,
-				9600DAE829817B2C00A1F9E8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9600DAEB29817B2C00A1F9E8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9600DAEC29817B2C00A1F9E8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9600DAF029817B2D00A1F9E8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,9 +276,9 @@
 				INFOPLIST_FILE = tryBluetooth/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -320,9 +304,9 @@
 				INFOPLIST_FILE = tryBluetooth/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
