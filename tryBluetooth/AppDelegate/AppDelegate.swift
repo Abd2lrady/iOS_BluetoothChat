@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  tryBluetooth
 //
-//  Created by TWIAbdulrady on 25/01/2023.
+//  Created by TWIAbdulrady
 //
 
 import UIKit
@@ -16,15 +16,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bootApp()
         return true
     }    
-}
-
-extension AppDelegate {
-
-    private func bootApp() {
-        self.window = UIWindow()
-        let rootView = ViewController()
-        self.window?.rootViewController = rootView
-        self.window?.makeKeyAndVisible()
-    }
-    
 }

@@ -2,19 +2,17 @@
 //  ViewController.swift
 //  tryBluetooth
 //
-//  Created by TWIAbdulrady on 25/01/2023.
+//  Created by TWIAbdulrady
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .green
+        print(Configuration.current)
     }
-
-
 }
 
