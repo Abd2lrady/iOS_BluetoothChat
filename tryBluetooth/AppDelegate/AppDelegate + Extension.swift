@@ -15,5 +15,4 @@ extension AppDelegate {
         self.window?.rootViewController = rootView
         self.window?.makeKeyAndVisible()
     }
-    
 }

@@ -27,7 +27,6 @@ enum Configuration: String {
         guard let rawValue = infoDict[PlistKeys.environment] as? String else {
             fatalError("environment not found")
         }
-        
         guard let configuration = Configuration(rawValue: rawValue) else {
             fatalError("not valid configuration")
         }

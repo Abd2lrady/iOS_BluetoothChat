@@ -15,4 +15,3 @@ class MainViewController: UIViewController {
         print(Configuration.current)
     }
 }
-
