@@ -10,14 +10,16 @@ import CoreText
 
 class BLECentralManager: NSObject {
     
+// MARK: - Properties
     var centralManager: CBCentralManager?
     var peripherals: [CBPeripheral]?
-    var isPowerOn: Bool?
+
+// MARK: - callbacks
     var statusUpdated: ((CBManagerState) -> Void)?
-    
     private var discoverCompletion: ((CBPeripheral) -> Void)?
     private var connectCompletion: ((Result<CBPeripheral, Error>) -> Void)?
     
+// MARK: - Central Operations
     func scan(for uuid: String?,
               discoverCompletion: @escaping ((CBPeripheral) -> Void)) {
         
@@ -48,6 +50,7 @@ class BLECentralManager: NSObject {
     }
 }
 
+// MARK: - Central Delegate
 extension BLECentralManager: CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
