@@ -15,11 +15,16 @@ class BLECentralManager: NSObject {
     var peripherals: [CBPeripheral]?
 
 // MARK: - callbacks
-    var statusUpdated: ((CBManagerState) -> Void)?
+    private var statusCompletion: ((CBManagerState) -> Void)?
     private var discoverCompletion: ((CBPeripheral) -> Void)?
     private var connectCompletion: ((Result<CBPeripheral, Error>) -> Void)?
     
 // MARK: - Central Operations
+    
+    func checkPowerStatus(statusCompletion: @escaping ((CBManagerState) -> Void)) {
+        self.statusCompletion = statusCompletion
+    }
+    
     func scan(for uuid: String?,
               discoverCompletion: @escaping ((CBPeripheral) -> Void)) {
         
@@ -54,7 +59,7 @@ class BLECentralManager: NSObject {
 extension BLECentralManager: CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        statusUpdated?(central.state)
+        statusCompletion?(central.state)
     }
     
     func centralManager(_ central: CBCentralManager,

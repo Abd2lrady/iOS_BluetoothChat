@@ -19,13 +19,13 @@ class MainViewController: UIViewController {
     }
     
     func configCentralManager() {
+        
         let cbCentralManager = CBCentralManager()
         bleCentralManager = BLECentralManager()
         bleCentralManager?.centralManager = cbCentralManager
         cbCentralManager.delegate = bleCentralManager
 
-        bleCentralManager?.statusUpdated = { status in
-            
+        bleCentralManager?.checkPowerStatus { status in
             if status == .poweredOn {
                 print("powerOn from view controller")
                 self.bleCentralManager?.scan(for: nil) { peripheral in
