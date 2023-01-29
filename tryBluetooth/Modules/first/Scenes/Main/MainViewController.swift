@@ -13,5 +13,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print(Configuration.current)
+        print(Constants.BluetoothUUID.central)
+        print(Constants.BluetoothUUID.peripheral)
     }
 }
