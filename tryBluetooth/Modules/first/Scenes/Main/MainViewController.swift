@@ -10,20 +10,20 @@ import CoreBluetooth
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var dataLabel: UILabel!
+    
     var bleCentralManager: BLECentralManager?
+    var blePeripheralManager: BLEPeripheralManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configCentralManager()
-        
+        title = "Peripheral"
+        configPeripheralManager()
     }
     
     func configCentralManager() {
         
-        let cbCentralManager = CBCentralManager()
-        bleCentralManager = BLECentralManager()
-        bleCentralManager?.centralManager = cbCentralManager
-        cbCentralManager.delegate = bleCentralManager
+        bleCentralManager = BLECentralManager.shared
 
         bleCentralManager?.checkPowerStatus { status in
             if status == .poweredOn {
@@ -33,5 +33,32 @@ class MainViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func configPeripheralManager() {
+        
+        blePeripheralManager = BLEPeripheralManager.shared
+        
+        blePeripheralManager?.checkPowerStatus(checkPowerStatusCompletion: { state in
+            if (state == .poweredOn) {
+                print("hello peri")
+                let service = Service(uuid: "796869ed-af4f-4577-a6cd-8c6d259f9cca",
+                                      primary: true,
+                                      characteristics: [Characteristic(uuid: "56ac37c0-a075-11ed-a8fc-0242ac120002",
+                                                                       value: nil,
+                                                                       permissions: [.readable, .writeable],
+                                                                       properties: [.read, .write])])
+                self.blePeripheralManager?.addService(service: service)
+                self.blePeripheralManager?.startAdvertising(uuid: "796869ed-af4f-4577-a6cd-8c6d259f9cca",
+                                                            localName: "hello peripheral xcode")
+            }
+        })
+        
+        blePeripheralManager?.didReceiveWriteRequests = { requests in
+            if let data = requests?.first?.value {
+                self.dataLabel.text = String(data: data, encoding: .utf8)
+            }
+        }
+        
     }
 }

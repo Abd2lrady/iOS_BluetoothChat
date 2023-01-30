@@ -6,23 +6,31 @@
 //
 
 import CoreBluetooth
-import CoreText
+import Foundation
 
 class BLECentralManager: NSObject {
     
+    static let shared: BLECentralManager = {
+        let instance = BLECentralManager()
+        instance.centralManager = CBCentralManager(delegate: instance, queue: nil)
+        return instance
+        }()
+    
 // MARK: - Properties
-    var centralManager: CBCentralManager?
+    private var centralManager: CBCentralManager?
     var peripherals: [CBPeripheral]?
+    
+    private override init() {    }
 
 // MARK: - callbacks
-    private var statusCompletion: ((CBManagerState) -> Void)?
+    private var checkPowerStatusCompletion: ((CBManagerState) -> Void)?
     private var discoverCompletion: ((CBPeripheral) -> Void)?
     private var connectCompletion: ((Result<CBPeripheral, Error>) -> Void)?
     
 // MARK: - Central Operations
     
-    func checkPowerStatus(statusCompletion: @escaping ((CBManagerState) -> Void)) {
-        self.statusCompletion = statusCompletion
+    func checkPowerStatus(checkPowerStatusCompletion: @escaping ((CBManagerState) -> Void)) {
+        self.checkPowerStatusCompletion = checkPowerStatusCompletion
     }
     
     func scan(for uuid: String?,
@@ -53,13 +61,17 @@ class BLECentralManager: NSObject {
         centralManager?.connect(peripheral)
         self.connectCompletion = connectCompletion
     }
+    
+    func stopScan() {
+        centralManager?.stopScan()
+    }
 }
 
 // MARK: - Central Delegate
 extension BLECentralManager: CBCentralManagerDelegate {
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        statusCompletion?(central.state)
+        checkPowerStatusCompletion?(central.state)
     }
     
     func centralManager(_ central: CBCentralManager,
