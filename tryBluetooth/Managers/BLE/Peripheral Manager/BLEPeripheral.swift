@@ -10,7 +10,9 @@ import CoreBluetooth
 
 class BLEPeripheral: NSObject {
     // MARK: - Properties
-    let peripheral: CBPeripheral
+    private let peripheral: CBPeripheral
+    private var services: [CBService]?
+    private var characteristics: [CBCharacteristic]?
     
     init(peripheral: CBPeripheral) {
         self.peripheral = peripheral
@@ -18,9 +20,9 @@ class BLEPeripheral: NSObject {
         peripheral.delegate = self
     }
     // MARK: - callbacks
-    var serviceDiscoveredCompletion: (([CBService]?) -> Void)?
-    var characteristicsDiscoveredCompletion: (([CBCharacteristic]?) -> Void)?
-    var readValueCompletion: ((Data?) -> Void)?
+    private var serviceDiscoveredCompletion: (([CBService]?) -> Void)?
+    private var characteristicsDiscoveredCompletion: (([CBCharacteristic]?) -> Void)?
+    private var readValueCompletion: ((Data?) -> Void)?
 
     // MARK: - Operations
     func discoverServices(with uuids: [String]?,
@@ -35,17 +37,33 @@ class BLEPeripheral: NSObject {
         peripheral.discoverServices(cbuuids)
     }
     
-    func discoverCharacteristics(with uuids: [String]?,
-                                 for service: CBService,
+    func discoverCharacteristics(withUUIDs charUuids: [String]?,
+                                 forUUID serviceUuid: String,
                                  characteristicsDiscoveredCompletion: @escaping (([CBCharacteristic]?) -> Void)) {
         self.characteristicsDiscoveredCompletion = characteristicsDiscoveredCompletion
-        guard let uuids = uuids
+        let serviceCBUuid = CBUUID(string: serviceUuid)
+
+        guard let services = services else {
+            return
+        }
+
+        var service: CBService?
+        for ser in services {
+            if ser.uuid == serviceCBUuid {
+                service = ser
+            }
+        }
+        
+        guard let service = service else {
+            return
+        }
+
+        guard let charUuids = charUuids
         else {
             peripheral.discoverCharacteristics(nil, for: service)
             return
         }
-        
-        let cbuuids = uuids.map { CBUUID(string: $0) }
+        let cbuuids = charUuids.map { CBUUID(string: $0) }
         peripheral.discoverCharacteristics(cbuuids, for: service)
     }
     
@@ -55,9 +73,29 @@ class BLEPeripheral: NSObject {
         peripheral.readValue(for: characteristics)
     }
     
-//    func writeValue(for characteristics: CBCharacteristic,
-//                    writeValueCompletion: @escaping ((Data?) -> Void)) {
-//    }
+    func writeValue(data: Data,
+                    for characteristicUuid: String,
+                    withResponse: Bool) {
+        
+        guard let characteristics = characteristics else { return }
+        let characteristisUuid = CBUUID(string: characteristicUuid)
+        var characteristic: CBCharacteristic?
+        
+        for char in characteristics {
+            if (char.uuid == characteristisUuid) {
+                characteristic = char
+                break
+            }
+        }
+        
+        guard let characteristic = characteristic else { return }
+        
+        if (withResponse) {
+            peripheral.writeValue(data, for: characteristic, type: .withResponse)
+        } else {
+            peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
+        }
+    }
     
 }
 
@@ -66,12 +104,18 @@ extension BLEPeripheral: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral,
                     didDiscoverServices error: Error?) {
+        services = peripheral.services
         serviceDiscoveredCompletion?(peripheral.services)
     }
     
     func peripheral(_ peripheral: CBPeripheral,
                     didDiscoverCharacteristicsFor service: CBService,
                     error: Error?) {
+        
+        if let error = error {
+            print(error)
+        }
+        self.characteristics = service.characteristics
         characteristicsDiscoveredCompletion?(service.characteristics)
     }
     

@@ -18,6 +18,10 @@
 		961083892986B5B40000D378 /* BLEPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961083882986B5B40000D378 /* BLEPeripheralManager.swift */; };
 		9639DDBC29863D5A00E2FFCA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639DDBB29863D5A00E2FFCA /* Constants.swift */; };
 		9639DDC12986415500E2FFCA /* BLECentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639DDC02986415500E2FFCA /* BLECentralManager.swift */; };
+		96FCCCC62987CF9A00E08302 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FCCCC42987CF9A00E08302 /* PeripheralViewController.swift */; };
+		96FCCCC72987CF9A00E08302 /* PeripheralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FCCCC52987CF9A00E08302 /* PeripheralViewController.xib */; };
+		96FCCCCD2987D72300E08302 /* CentralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FCCCCB2987D72300E08302 /* CentralViewController.swift */; };
+		96FCCCCE2987D72300E08302 /* CentralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FCCCCC2987D72300E08302 /* CentralViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		961083882986B5B40000D378 /* BLEPeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEPeripheralManager.swift; sourceTree = "<group>"; };
 		9639DDBB29863D5A00E2FFCA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9639DDC02986415500E2FFCA /* BLECentralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLECentralManager.swift; sourceTree = "<group>"; };
+		96FCCCC42987CF9A00E08302 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
+		96FCCCC52987CF9A00E08302 /* PeripheralViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PeripheralViewController.xib; sourceTree = "<group>"; };
+		96FCCCCB2987D72300E08302 /* CentralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralViewController.swift; sourceTree = "<group>"; };
+		96FCCCCC2987D72300E08302 /* CentralViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CentralViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +139,8 @@
 		9600DB02298184DD00A1F9E8 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				968533722987CDF900136007 /* Central */,
+				96FCCCC32987CF2B00E08302 /* PeripheralRole */,
+				968533722987CDF900136007 /* CentralRole */,
 				9600DB03298184EF00A1F9E8 /* Main */,
 			);
 			path = Scenes;
@@ -211,11 +220,38 @@
 			path = CentralManager;
 			sourceTree = "<group>";
 		};
-		968533722987CDF900136007 /* Central */ = {
+		968533722987CDF900136007 /* CentralRole */ = {
 			isa = PBXGroup;
 			children = (
+				96FCCCCA2987D35A00E08302 /* ViewController */,
 			);
-			path = Central;
+			path = CentralRole;
+			sourceTree = "<group>";
+		};
+		96FCCCC32987CF2B00E08302 /* PeripheralRole */ = {
+			isa = PBXGroup;
+			children = (
+				96FCCCC82987D11E00E08302 /* ViewController */,
+			);
+			path = PeripheralRole;
+			sourceTree = "<group>";
+		};
+		96FCCCC82987D11E00E08302 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96FCCCC42987CF9A00E08302 /* PeripheralViewController.swift */,
+				96FCCCC52987CF9A00E08302 /* PeripheralViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		96FCCCCA2987D35A00E08302 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96FCCCCB2987D72300E08302 /* CentralViewController.swift */,
+				96FCCCCC2987D72300E08302 /* CentralViewController.xib */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,9 +313,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FCCCC72987CF9A00E08302 /* PeripheralViewController.xib in Resources */,
 				9600DAF229817B2D00A1F9E8 /* LaunchScreen.storyboard in Resources */,
 				9600DB052981851100A1F9E8 /* MainViewController.xib in Resources */,
 				9600DAEF29817B2D00A1F9E8 /* Images.xcassets in Resources */,
+				96FCCCCE2987D72300E08302 /* CentralViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +356,9 @@
 				96108387298673DF0000D378 /* BLEPeripheral.swift in Sources */,
 				9600DB0A2981887F00A1F9E8 /* Configuration.swift in Sources */,
 				9600DAE629817B2C00A1F9E8 /* AppDelegate.swift in Sources */,
+				96FCCCCD2987D72300E08302 /* CentralViewController.swift in Sources */,
 				9639DDC12986415500E2FFCA /* BLECentralManager.swift in Sources */,
+				96FCCCC62987CF9A00E08302 /* PeripheralViewController.swift in Sources */,
 				961083892986B5B40000D378 /* BLEPeripheralManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,8 +78,8 @@ extension BLECentralManager: CBCentralManagerDelegate {
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String: Any],
                         rssi RSSI: NSNumber) {
-        peripherals?.append(peripheral)
         discoverCompletion?(peripheral)
+        peripherals?.append(peripheral)
     }
     
     func centralManager(_ central: CBCentralManager,
