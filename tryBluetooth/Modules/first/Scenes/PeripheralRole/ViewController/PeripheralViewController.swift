@@ -8,10 +8,12 @@
 import UIKit
 
 class PeripheralViewController: UIViewController {
-
+    
+    @IBOutlet weak var chatTextField: UITextField!
+    @IBOutlet weak var dataLabel: UILabel!
+    
     var blePeripheralManager: BLEPeripheralManager?
 
-    @IBOutlet weak var dataLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +36,8 @@ class PeripheralViewController: UIViewController {
                                         Characteristic(uuid: Constants.BluetoothUUID.chatCharactristicsUUID,
                                                        value: nil,
                                                        permissions: [.readable, .writeable],
-                                                       properties: [.read, .write, .writeWithoutResponse])])
-                
+                                                       properties: [.read, .notify, .writeWithoutResponse])])
+                                
                 self?.blePeripheralManager?.addService(service: service)
                 self?.blePeripheralManager?.startAdvertising(uuid: Constants.BluetoothUUID.chatServiceUUID,
                                                              localName: "hello peripheral xcode")
@@ -55,4 +57,15 @@ class PeripheralViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func sendButtonAction(_ sender: Any) {
+        chatTextField.resignFirstResponder()
+        guard let msg = chatTextField.text, !msg.isEmpty else { return }
+        guard let data = msg.data(using: .utf8) else { return }
+        
+        blePeripheralManager?.writeOn(data: data,
+                                      on: Constants.BluetoothUUID.chatCharactristicsUUID,
+                                      for: Constants.BluetoothUUID.chatServiceUUID)
+    }
+    
 }

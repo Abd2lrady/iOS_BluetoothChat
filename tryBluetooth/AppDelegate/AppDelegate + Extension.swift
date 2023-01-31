@@ -12,8 +12,8 @@ extension AppDelegate {
     func bootApp() {
         self.window = UIWindow()
 //        let rootView = MainViewController()
-        let rootView = CentralViewController()
-//        let rootView = PeripheralViewController()
+//        let rootView = CentralViewController()
+        let rootView = PeripheralViewController()
 
         self.window?.rootViewController = rootView
         self.window?.makeKeyAndVisible()

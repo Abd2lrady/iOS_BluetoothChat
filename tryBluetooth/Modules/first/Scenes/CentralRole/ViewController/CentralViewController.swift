@@ -11,7 +11,7 @@ class CentralViewController: UIViewController {
     
     @IBOutlet weak var connectionStatusLabel: UILabel!
     @IBOutlet weak var chatTextField: UITextField!
-    @IBOutlet weak var lastMsgLabel: UILabel!
+    @IBOutlet weak var receivedMsg: UILabel!
     
     var bleCentralManager: BLECentralManager?
     var chatPeripheral: BLEPeripheral?
@@ -70,11 +70,13 @@ class CentralViewController: UIViewController {
         self.chatPeripheral?.discoverCharacteristics(withUUIDs: [Constants.BluetoothUUID.chatCharactristicsUUID],
                                                      forUUID: Constants.BluetoothUUID.chatServiceUUID,
                                                      characteristicsDiscoveredCompletion: { [weak self] _ in
+            self?.bleCentralManager?.stopScan()
             let msg = "Hello Central"
             guard let data = msg.data(using: .utf8) else { return }
             self?.chatPeripheral?.writeValue(data: data,
                                              for: Constants.BluetoothUUID.chatCharactristicsUUID,
                                              withResponse: false)
+            self?.setNotify(for: Constants.BluetoothUUID.chatCharactristicsUUID)
         })
     }
     
@@ -93,6 +95,16 @@ class CentralViewController: UIViewController {
         })
     }
     
+    func setNotify(for uuid: String) {
+        chatPeripheral?.notifyValue(for: uuid,
+                                    updateValueCompletion: { [weak self] data in
+            print(data)
+            guard let data = data else { return }
+            let msg = String(data: data, encoding: .utf8)
+            self?.receivedMsg.text = msg
+        })
+    }
+    
     @IBAction func sendButtonAction(_ sender: Any) {
         
         guard let msg = chatTextField.text, !msg.isEmpty else { return }
@@ -104,12 +116,12 @@ class CentralViewController: UIViewController {
         chatTextField.resignFirstResponder()
     }
     
-    @IBAction func getLastMsgButtonAction(_ sender: Any) {
-        chatPeripheral?.readValue(for: Constants.BluetoothUUID.chatCharactristicsUUID,
-                                  readValueCompletion: { [weak self] data in
-            guard let data = data else { return }
-            let msg = String(data: data, encoding: .utf8)
-            self?.lastMsgLabel.text = msg
-        })
-    }
+//    @IBAction func getLastMsgButtonAction(_ sender: Any) {
+//        chatPeripheral?.readValue(for: Constants.BluetoothUUID.chatCharactristicsUUID,
+//                                  readValueCompletion: { [weak self] data in
+//            guard let data = data else { return }
+//            let msg = String(data: data, encoding: .utf8)
+//            self?.lastMsgLabel.text = msg
+//        })
+//    }
 }

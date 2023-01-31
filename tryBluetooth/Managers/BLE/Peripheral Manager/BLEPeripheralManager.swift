@@ -14,22 +14,24 @@ class BLEPeripheralManager: NSObject {
         let instance = BLEPeripheralManager()
         instance.peripheralManager = CBPeripheralManager(delegate: instance, queue: nil)
         return instance
-        }()
+    }()
     
-// MARK: - Properties
+    // MARK: - Properties
     private var peripheralManager: CBPeripheralManager?
     private var localName: String?
-    
-    private override init() {    }
+    private var services: [CBMutableService]?
+    private var chatChar: CBMutableCharacteristic?
 
-// MARK: - callbacks
+    private override init() {    }
+    
+    // MARK: - callbacks
     private var checkPowerStatusCompletion: ((CBManagerState) -> Void)?
     private var discoverCompletion: ((CBPeripheral) -> Void)?
     private var connectCompletion: ((Result<CBPeripheral, Error>) -> Void)?
     var didReceiveWriteRequests: (([CBATTRequest]?) -> Void)?
     var didReceiveReadRequest: ((CBATTRequest) -> Void)?
-
-// MARK: - Peripheral Operations
+    
+    // MARK: - Peripheral Operations
     func setLocalName(name: String) {
         localName = name
     }
@@ -45,9 +47,11 @@ class BLEPeripheralManager: NSObject {
         
         let service = CBMutableService(type: cbuuid, primary: service.primary)
         service.characteristics = characteristics
+        self.chatChar = characteristics[0]
+        self.services = [service]
         peripheralManager?.add(service)
     }
-        
+    
     func checkPowerStatus(checkPowerStatusCompletion: @escaping ((CBManagerState) -> Void)) {
         self.checkPowerStatusCompletion = checkPowerStatusCompletion
     }
@@ -68,6 +72,33 @@ class BLEPeripheralManager: NSObject {
         let service = CBMutableService(type: cbuuid, primary: pirmary)
         peripheralManager?.remove(service)
     }
+    
+    func writeOn(data: Data, on characteristic: String, for service: String) {
+        
+//        let serviceCBUuid = CBUUID(string: service)
+//        let charCBUuid = CBUUID(string: characteristic)
+        
+//        guard let services = services else { return }
+//        var characteristic: CBMutableCharacteristic
+//        for service in services {
+//            if service.uuid == serviceCBUuid {
+//                guard let characteristics = service.characteristics else { return }
+//
+//                for char in characteristics {
+//                    if (char.uuid == charCBUuid && char.properties.contains(.notify)) {
+//                        guard let char = char as? CBMutableCharacteristic else { return }
+//                        characteristic = char
+//                    }
+//                }
+//            }
+//            guard let characteristic = characteristic else { return }
+            
+//            characteristic.value = data
+//        }
+        guard let chatChar = self.chatChar else { return }
+        chatChar.value = data
+        peripheralManager?.updateValue(data, for: chatChar, onSubscribedCentrals: nil)
+    }
 }
 
 // MARK: - Peripheral Delegate
@@ -75,7 +106,7 @@ extension BLEPeripheralManager: CBPeripheralManagerDelegate {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         checkPowerStatusCompletion?(peripheral.state)
     }
-        
+    
     func peripheralManager(_ peripheral: CBPeripheralManager,
                            didReceiveRead request: CBATTRequest) {
         didReceiveReadRequest?(request)

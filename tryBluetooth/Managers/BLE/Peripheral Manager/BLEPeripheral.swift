@@ -22,7 +22,7 @@ class BLEPeripheral: NSObject {
     // MARK: - callbacks
     private var serviceDiscoveredCompletion: (([CBService]?) -> Void)?
     private var characteristicsDiscoveredCompletion: (([CBCharacteristic]?) -> Void)?
-    private var readValueCompletion: ((Data?) -> Void)?
+    private var updateValueCompletion: ((Data?) -> Void)?
 
     // MARK: - Operations
     func discoverServices(with uuids: [String]?,
@@ -83,7 +83,6 @@ class BLEPeripheral: NSObject {
         
         guard let characteristic = characteristic else { return }
 
-        self.readValueCompletion = readValueCompletion
         peripheral.readValue(for: characteristic)
     }
     
@@ -111,6 +110,26 @@ class BLEPeripheral: NSObject {
         }
     }
     
+    func notifyValue(for characteristicUuid: String,
+                     updateValueCompletion: @escaping ((Data?) -> Void)) {
+        
+        guard let characteristics = characteristics else { return }
+        let characteristisUuid = CBUUID(string: characteristicUuid)
+        var characteristic: CBCharacteristic?
+        
+        for char in characteristics {
+            if (char.uuid == characteristisUuid && char.properties.contains(.notify)) {
+                characteristic = char
+                break
+            }
+        }
+        
+        guard let characteristic = characteristic else { return }
+
+        self.updateValueCompletion = updateValueCompletion
+        peripheral.setNotifyValue(true, for: characteristic)
+    }
+    
 }
 
 // MARK: - Peripheral Delegate
@@ -136,6 +155,6 @@ extension BLEPeripheral: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
-        readValueCompletion?(characteristic.value)
+        updateValueCompletion?(characteristic.value)
     }
 }
