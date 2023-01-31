@@ -37,6 +37,7 @@ class CentralViewController: UIViewController {
         self.bleCentralManager?
             .scan(for: uuid) { [weak self] peripheral in
                 self?.chatPeripheral = BLEPeripheral(peripheral: peripheral)
+                self?.bleCentralManager?.peripherals = (self?.bleCentralManager?.peripherals ?? []) + [peripheral]
                 self?.connect(to: self?.chatPeripheral)
             }
     }
@@ -116,7 +117,12 @@ class CentralViewController: UIViewController {
         chatTextField.resignFirstResponder()
     }
     
-//    @IBAction func getLastMsgButtonAction(_ sender: Any) {
+    @IBAction func disconnectButtonAction(_ sender: Any) {
+        bleCentralManager?.stopScan()
+        bleCentralManager?.disconnect(service: Constants.BluetoothUUID.chatServiceUUID)
+    }
+
+    //    @IBAction func getLastMsgButtonAction(_ sender: Any) {
 //        chatPeripheral?.readValue(for: Constants.BluetoothUUID.chatCharactristicsUUID,
 //                                  readValueCompletion: { [weak self] data in
 //            guard let data = data else { return }

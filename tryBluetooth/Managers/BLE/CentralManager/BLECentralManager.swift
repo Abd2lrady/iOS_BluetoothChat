@@ -65,6 +65,29 @@ class BLECentralManager: NSObject {
     func stopScan() {
         centralManager?.stopScan()
     }
+    
+    func disconnect(service uuid: String) {
+        
+        let cbUuid = CBUUID(string: uuid)
+        guard let peripherals = peripherals else { return }
+
+        var peri: CBPeripheral?
+        
+        for per in peripherals {
+            if let services = per.services {
+                for service in services {
+                    if service.uuid == cbUuid {
+                        peri = per
+                        break
+                    }
+                }
+            }
+        }
+        
+        guard let peri = peri else { return }
+
+        centralManager?.cancelPeripheralConnection(peri)
+    }
 }
 
 // MARK: - Central Delegate

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ImC-kC-Wan">
-                    <rect key="frame" x="30" y="159" width="124" height="20.5"/>
+                    <rect key="frame" x="30" y="163" width="124" height="20.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection is" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGQ-sm-5o0" userLabel="connectionStatus">
                             <rect key="frame" x="0.0" y="0.0" width="104.5" height="20.5"/>
@@ -40,7 +40,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Szs-4G-7Js">
-                    <rect key="frame" x="20" y="229.5" width="374" height="303"/>
+                    <rect key="frame" x="20" y="233.5" width="374" height="328"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-UY-hix">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="84"/>
@@ -81,7 +81,7 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C2Y-V7-dRy">
-                            <rect key="frame" x="0.0" y="273" width="374" height="30"/>
+                            <rect key="frame" x="0.0" y="248" width="374" height="80"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gm1-Sz-UeE">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -91,6 +91,17 @@
                                     </state>
                                     <connections>
                                         <action selector="connectCharacteristics:" destination="-1" eventType="touchUpInside" id="2Lw-Wz-nzE"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7X-sp-dM4">
+                                    <rect key="frame" x="0.0" y="50" width="374" height="30"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Disconnect">
+                                        <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="connectCharacteristics:" destination="-1" eventType="touchUpInside" id="Pli-Bu-jn5"/>
+                                        <action selector="disconnectButtonAction:" destination="-1" eventType="touchUpInside" id="94w-vv-lUQ"/>
                                     </connections>
                                 </button>
                             </subviews>
