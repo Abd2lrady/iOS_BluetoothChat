@@ -10,7 +10,7 @@ import CoreBluetooth
 
 class BLEPeripheral: NSObject {
     // MARK: - Properties
-    private let peripheral: CBPeripheral
+    let peripheral: CBPeripheral
     private var services: [CBService]?
     private var characteristics: [CBCharacteristic]?
     
@@ -67,10 +67,24 @@ class BLEPeripheral: NSObject {
         peripheral.discoverCharacteristics(cbuuids, for: service)
     }
     
-    func readValue(for characteristics: CBCharacteristic,
+    func readValue(for characteristicUuid: String,
                    readValueCompletion: @escaping ((Data?) -> Void)) {
+        
+        guard let characteristics = characteristics else { return }
+        let characteristisUuid = CBUUID(string: characteristicUuid)
+        var characteristic: CBCharacteristic?
+        
+        for char in characteristics {
+            if (char.uuid == characteristisUuid && char.properties.contains(.read)) {
+                characteristic = char
+                break
+            }
+        }
+        
+        guard let characteristic = characteristic else { return }
+
         self.readValueCompletion = readValueCompletion
-        peripheral.readValue(for: characteristics)
+        peripheral.readValue(for: characteristic)
     }
     
     func writeValue(data: Data,

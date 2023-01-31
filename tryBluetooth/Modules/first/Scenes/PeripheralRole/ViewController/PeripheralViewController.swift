@@ -23,7 +23,7 @@ class PeripheralViewController: UIViewController {
         
         blePeripheralManager = BLEPeripheralManager.shared
         
-        blePeripheralManager?.checkPowerStatus(checkPowerStatusCompletion: { state in
+        blePeripheralManager?.checkPowerStatus(checkPowerStatusCompletion: { [weak self] state in
             
             if (state == .poweredOn) {
                 print("hello peri")
@@ -36,16 +36,22 @@ class PeripheralViewController: UIViewController {
                                                        permissions: [.readable, .writeable],
                                                        properties: [.read, .write, .writeWithoutResponse])])
                 
-                self.blePeripheralManager?.addService(service: service)
-                self.blePeripheralManager?.startAdvertising(uuid: Constants.BluetoothUUID.chatServiceUUID,
-                                                            localName: "hello peripheral xcode")
+                self?.blePeripheralManager?.addService(service: service)
+                self?.blePeripheralManager?.startAdvertising(uuid: Constants.BluetoothUUID.chatServiceUUID,
+                                                             localName: "hello peripheral xcode")
             }
         })
         
-        blePeripheralManager?.didReceiveWriteRequests = { requests in
+        blePeripheralManager?.didReceiveWriteRequests = {[weak self] requests in
             if let data = requests?.first?.value {
-                self.dataLabel.text = String(data: data, encoding: .utf8)
+                self?.dataLabel.text = String(data: data, encoding: .utf8)
             }
+        }
+        
+        blePeripheralManager?.didReceiveReadRequest = { [weak self] request in
+            guard let msg = self?.dataLabel.text else { return }
+            let data = msg.data(using: .utf8)
+            request.value = data
         }
         
     }

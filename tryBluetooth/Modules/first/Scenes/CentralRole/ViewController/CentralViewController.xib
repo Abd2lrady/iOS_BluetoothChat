@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="chatTextField" destination="0lz-r1-8VP" id="c6h-bX-Bzb"/>
                 <outlet property="connectionStatusLabel" destination="7KP-vS-qrX" id="jEH-tx-fK4"/>
+                <outlet property="lastMsgLabel" destination="z3T-2W-9US" id="ilb-Ki-ya7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,7 +40,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Szs-4G-7Js">
-                    <rect key="frame" x="20" y="229.5" width="374" height="372.5"/>
+                    <rect key="frame" x="20" y="229.5" width="374" height="352"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Jya-UY-hix">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="84"/>
@@ -89,22 +90,16 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C2Y-V7-dRy">
-                            <rect key="frame" x="0.0" y="302" width="374" height="70.5"/>
+                            <rect key="frame" x="0.0" y="322" width="374" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover Charas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cw-no-8hq">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gm1-Sz-UeE">
-                                    <rect key="frame" x="0.0" y="40.5" width="374" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Discover">
+                                    <state key="normal" title="Connect">
                                         <color key="titleColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                     </state>
                                     <connections>
-                                        <action selector="dicoverCharacteristics:" destination="-1" eventType="touchUpInside" id="Uxr-Dz-VVH"/>
+                                        <action selector="connectCharacteristics:" destination="-1" eventType="touchUpInside" id="2Lw-Wz-nzE"/>
                                         <action selector="getLastMsgButtonAction:" destination="-1" eventType="touchUpInside" id="EuI-78-bu0"/>
                                     </connections>
                                 </button>

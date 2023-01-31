@@ -79,6 +79,7 @@ extension BLEPeripheralManager: CBPeripheralManagerDelegate {
     func peripheralManager(_ peripheral: CBPeripheralManager,
                            didReceiveRead request: CBATTRequest) {
         didReceiveReadRequest?(request)
+        peripheral.respond(to: request, withResult: .success)
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager,
